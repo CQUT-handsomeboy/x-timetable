@@ -26,12 +26,7 @@ const eveningTable = todayTimetable.filter(
     class="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl"
   >
     ⏲️{
-      now.toLocaleString('zh-CN', {
-        month: 'numeric',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      })
+      now.toDateString()
     }<br class="hidden sm:inline" />
   </h1>
 
