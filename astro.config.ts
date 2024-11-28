@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
+import zeabur from '@zeabur/astro-adapter/serverless';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,5 +14,6 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
-  output: 'server' // 每次都需要重新渲染
+  output: 'server',
+  adapter: zeabur(),
 })
