@@ -1,0 +1,27 @@
+---
+const { thisWeekTimetable } = Astro.props
+import PieChart from '../components/ui/pie-chart'
+import BarChart from '../components/ui/bar-chart'
+
+const freqsMapping = new Map<string, number>()
+
+thisWeekTimetable.map((table) => {
+  table.map((item) => {
+    if (freqsMapping.has(item.name))
+      freqsMapping.set(item.name, freqsMapping.get(item.name)! + 1)
+    else freqsMapping.set(item.name, 1)
+  })
+})
+import { weekDaysMapping } from '../lib/utils'
+
+const thisWeekTableCounts = thisWeekTimetable.map((table, i) => {
+  return { name: weekDaysMapping[i], count: table.length }
+})
+---
+
+<div class="flex flex-col gap-3 md:flex-row">
+  <PieChart dataMap={freqsMapping} client:load />
+  <div class="md:flex-1">
+    <BarChart chartData={thisWeekTableCounts} client:load />
+  </div>
+</div>

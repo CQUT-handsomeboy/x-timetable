@@ -1,0 +1,49 @@
+---
+const now = new Date()
+const { todayTimetable } = Astro.props
+import { getTimeStamp } from '../lib/utils'
+
+// 上午
+const morningTable = todayTimetable.filter(
+  (item) => getTimeStamp(item.time) < getTimeStamp('12:00:00')
+)
+
+// 下午
+const afternoonTable = todayTimetable.filter(
+  (item) =>
+    getTimeStamp(item.time) > getTimeStamp('12:00:00') &&
+    getTimeStamp(item.time) < getTimeStamp('18:00:00')
+)
+
+// 晚上
+const eveningTable = todayTimetable.filter(
+  (item) => getTimeStamp(item.time) > getTimeStamp('18:00:00')
+)
+---
+
+<div class="flex max-w-[980px] flex-col items-start gap-2">
+  <h1
+    class="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl"
+  >
+    ⏲️{
+      now.toLocaleString('zh-CN', {
+        month: 'numeric',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    }<br class="hidden sm:inline" />
+  </h1>
+
+  <p class="max-w-[700px] text-lg text-muted-foreground">
+    {morningTable.length > 0 && `🌅上午有${morningTable.length}节课`}
+    {afternoonTable.length > 0 && `🌇下午有${afternoonTable.length}节课`}
+    {eveningTable.length > 0 && `🌃晚上有${eveningTable.length}节课`}
+    {
+      morningTable.length == 0 &&
+        afternoonTable.length == 0 &&
+        eveningTable.length == 0 &&
+        '😴没有课，玩!'
+    }
+  </p>
+</div>

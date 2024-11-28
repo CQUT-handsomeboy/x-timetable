@@ -1,0 +1,1 @@
+export const selectedTimetableName = "2024-2025-1-half" // 当前选中的课表
