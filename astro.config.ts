@@ -13,4 +13,5 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
+  output: 'server' // 每次都需要重新渲染
 })
