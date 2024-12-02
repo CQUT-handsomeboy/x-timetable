@@ -7,12 +7,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getTimetable(tables: Timetable, date?: Date) {
-  if (!date) return []
-
   date.setHours(8) // 偏移量，防止被当成昨天
   const dateString = date.toISOString().slice(0, 10)
 
-  if (dateString in tables) return tables[dateString]
+  if (dateString in tables) {
+    return tables[dateString].sort(
+      (a, b) => getTimeStamp(a.time.slice(0,5)) - getTimeStamp(b.time.slice(0,5)),
+    )
+  }
 
   return []
 }

@@ -20,7 +20,7 @@ const thisWeekTableCounts = thisWeekTimetable.map((table, i) => {
 ---
 
 <div class="flex flex-col gap-3 md:flex-row">
-  <PieChart dataMap={freqsMapping} client:load />
+  <!-- <PieChart dataMap={freqsMapping} client:load /> -->
   <div class="md:flex-1">
     <BarChart chartData={thisWeekTableCounts} client:load />
   </div>
