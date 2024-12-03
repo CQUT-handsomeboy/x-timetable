@@ -35,7 +35,7 @@ function timeLineItem(name: string, time: string, key: string) {
 
 export function Timeline({tables}) {
   const $selectedDate = useStore(selectedDate)
-  
+
   return (
     <div className="p-6 sm:p-10 sm:py-0">
       <div className="relative grid gap-10 pl-6 after:absolute after:inset-y-0 after:left-0 after:w-px after:bg-gray-500/20 dark:after:bg-gray-400/20">

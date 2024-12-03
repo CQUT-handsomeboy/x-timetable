@@ -7,25 +7,39 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getTimetable(tables: Timetable, date?: Date) {
-  date.setHours(8) // 偏移量，防止被当成昨天
-  const dateString = date.toISOString().slice(0, 10)
+  if (typeof date === 'undefined') return []
+
+  const [month, dateday, year] = date
+    .toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })
+    .split(',')[0]
+    .split('/')
+    .map((v) => parseInt(v))
+  
+  const dateString = `${year.toString().padStart(4, '0')}-${month.toString().padStart(2, '0')}-${dateday.toString().padStart(2, '0')}`
 
   if (dateString in tables) {
     return tables[dateString].sort(
-      (a, b) => getTimeStamp(a.time.slice(0,5)) - getTimeStamp(b.time.slice(0,5)),
+      (a, b) =>
+        getTimeStamp(a.time.slice(0, 5)) - getTimeStamp(b.time.slice(0, 5)),
     )
   }
 
   return []
 }
 
+export const today = new Date()
+
 // 获取时间戳
-export const getTimeStamp = (timeString) =>
-  new Date(`${new Date().toISOString().slice(0, 11)}${timeString}`).getTime()
+export const getTimeStamp = (timeString: string) => {
+  const [hours, minutes] = timeString.split(':').map((v) => parseInt(v))
+  const newDate = new Date()
+  newDate.setHours(hours)
+  newDate.setMinutes(minutes)
+  return newDate.getTime()
+}
 
 // 得到这一周的所有日期列表
 export function getDaysOfThisWeek() {
-  const today = new Date()
   const currentDay = today.getDay() // 0 表示周日，1 表示周一，以此类推
   const weekDates: Date[] = []
 

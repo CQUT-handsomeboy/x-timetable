@@ -8,21 +8,22 @@ import ThisWeek from '../components/ThisWeek.astro'
 
 import { getEntry } from 'astro:content'
 import { selectedTimetableName } from '../consts'
-import { getTimetable,getThisWeekTimetable } from '../lib/utils'
+import { getTimetable,getThisWeekTimetable,today } from '../lib/utils'
 
 const tableEntry = await getEntry('timetable', selectedTimetableName)
 const tables = tableEntry.data // 所有课表
 
-const todayTimetable = getTimetable(tables, new Date())
+const todayTimetable = getTimetable(tables, today)
 const thisWeekTimetable = getThisWeekTimetable(tables)
 
 ---
+
+<!-- <Debug info={{"today":today.getDate()}} /> -->
 
 <BaseLayout title="📕课程表" description="帮助你弄清楚摸鱼的意义">
   <section class="container grid items-center gap-6 pb-8 pt-6 md:py-10">
     <Banner todayTimetable={todayTimetable} />
     <div class="grid gap-4">
-      <!-- Today要传入所有课表 -->
       <Today tables={tables} />
       <TheseDays thisWeekTimetable={thisWeekTimetable} />
       <ThisWeek thisWeekTimetable={thisWeekTimetable} />

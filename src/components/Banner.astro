@@ -1,8 +1,7 @@
 ---
-const now = new Date()
-now.setHours(8)
 const { todayTimetable } = Astro.props
-import { getTimeStamp } from '../lib/utils'
+
+import { getTimeStamp,today } from '../lib/utils'
 
 // 上午
 const morningTable = todayTimetable.filter(
@@ -20,6 +19,7 @@ const afternoonTable = todayTimetable.filter(
 const eveningTable = todayTimetable.filter(
   (item) => getTimeStamp(item.time) > getTimeStamp('18:00:00')
 )
+
 ---
 
 <div class="flex max-w-[980px] flex-col items-start gap-2">
@@ -27,8 +27,8 @@ const eveningTable = todayTimetable.filter(
     class="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl"
   >
     ⏲️{
-      now.toDateString()
-    }<br class="hidden sm:inline" />
+      today.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })
+    } <br class="hidden sm:inline" />
   </h1>
 
   <p class="max-w-[700px] text-lg text-muted-foreground">
