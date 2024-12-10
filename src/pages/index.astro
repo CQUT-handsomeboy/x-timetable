@@ -7,20 +7,14 @@ import { AvatarComponent } from "../components/Avatar.tsx";
 import Footer from "@/components/Footer.astro";
 import Table from "@/components/Table";
 
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
-dayjs.extend(timezone);
-dayjs.tz.setDefault("Asia/Shanghai");
-const todayString = dayjs().format("YYYY-MM-DD");
-
 import { getEntry } from "astro:content";
 const tableEntry = await getEntry("timetable", "2024-2025-1");
 ---
 
-<Layout title="Welcome to Astro x Shadcn Starter">
+<Layout title="x-timetable">
   <main class="container mx-auto px-4 py-16 max-w-4xl">
     <h1 class="text-5xl font-extrabold text-center mb-8 text-black-50">
-      🖼️{todayString}
+      🖼️
       <!-- <span class="text-3xl block mt-2 font-normal"
         >Starter Template</span
       > -->
